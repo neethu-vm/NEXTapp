@@ -1,17 +1,28 @@
+// src/index.js
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import store from "./Store";
+import AlertTemplate from "react-alert-template-basic";
+import { transitions, positions,types, Provider as AlertProvider } from 'react-alert'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.TOP_RIGHT,
+  timeout: 4000,
+  offset: '20px',
+  // you can also just use 'scale'
+  transition: transitions.SCALE,
+  types:types.SUCCESS,
+   
+}
+
+ReactDOM.render(
+  <AlertProvider template={AlertTemplate} {...options}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </AlertProvider>,
+  document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
